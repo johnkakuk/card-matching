@@ -226,6 +226,8 @@ function newHand() {
     if(triesRemainingLabel instanceof Element) triesRemainingLabel.innerHTML = `Tries remaining: ${triesRemaining.toString()}`; 
     SND_VICTORY.reset();
     SND_DEFEAT.reset();
+    lastClicked.length = 0;
+    justClicked.length = 0;
 
     hand.forEach(card => {
         deck.push(card);
@@ -281,18 +283,41 @@ function newHand() {
         cardRanks[i].innerHTML = hand[i].rank;
         cardRanks2[i].innerHTML = hand[i].rank;
 
-        // Add suit symbols
+        // Add suit symbols, A-10
         let value: number;
-        if (["J", "Q", "K"].includes(card.rank)) value = 10;
+        if (card.rank == "J") value = 11;
+        else if (card.rank == "Q") value = 12;
+        else if (card.rank == "K") value = 13
         else if (card.rank == "A") value = 1;
         else value = parseInt(card.rank);
 
-        for (let ind = 0; ind < value; ind++) {
+        if(value < 11) {
+            for (let ind = 0; ind < value; ind++) {
+                const el = document.createElement("span");
+                el.className = "suit";
+                el.innerHTML = card.suit;
+                cards[i].querySelector(".card-front")?.appendChild(el);
+            }
+        } else if(value == 11) {
             const el = document.createElement("span");
-            el.className = "suit";
-            el.innerHTML = card.suit;
+            el.className = "suit face";
+            el.innerHTML = "♘";
             cards[i].querySelector(".card-front")?.appendChild(el);
+        } else if(value == 12) {
+            const el = document.createElement("span");
+            el.className = "suit face";
+            el.innerHTML = "♕";
+            cards[i].querySelector(".card-front")?.appendChild(el);
+        } else if (value == 13) {
+            const el = document.createElement("span");
+            el.className = "suit face";
+            el.innerHTML = "♔";
+            cards[i].querySelector(".card-front")?.appendChild(el);
+        } else {
+            console.error("An unspecified error occurred.");
         }
+        
+        // Add suit symbols for face cards
 
         // Color control
         if(["&diams;", "&hearts;"].includes(card.suit)) cards[i].classList.add("red");
