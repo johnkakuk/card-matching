@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Card Match</title>
+<script defer src="bundle.js"></script></head>
+<body>
+    <main>
+        <header>
+            <div>
+                <h1>Card Match</h1>
+                <p>Try to match all 3 pair of cards in 3 attempts or less.</p>
+            </div>
+            <span id="triesRemaining">Tries Remaining: 3</span>
+        </header>
+        <section class="cards" aria-label="Hand">
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <div class="card hidden flipped"><div class="card-inner"><div class="card-face card-front"><span class="rank">A</span><span class="rank">A</span><span class="suit">♠</span></div><div class="card-face card-back" aria-hidden="true"></div></div></div>
+            <h2 class="outcome hidden">You Lose</h2>
+        </section>
+        <button id="deal" aria-label="Deal">Deal</button>
+        <!-- Mute toggle -->
+        <button id="muteBtn" class="mute-toggle" aria-label="Toggle sound" title="Toggle sound">
+            <img alt="Volume" aria-hidden="true" />
+        </button>
+
+        <!-- Sounds -->
+        <audio id="s-success" preload="auto"></audio>
+        <audio id="s-error" preload="auto"></audio>
+        <audio id="s-victory" preload="auto"></audio>
+        <audio id="s-defeat" preload="auto"></audio>
+
+        <section id="stats" class="stats">
+            <h3>Stats</h3>
+            <p>Games: <span id="stat-games">0</span></p>
+            <p>Wins: <span id="stat-wins">0</span></p>
+            <p>Losses: <span id="stat-losses">0</span></p>
+            <p>Streak: <span id="stat-streak">0</span></p>
+        </section>
+    </main>
+</body>
+</html>

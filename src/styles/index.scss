@@ -1,0 +1,307 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1C531D;
+    color: #fff;
+    padding: 30px;
+    font-family:'Open Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 750px;
+    margin: 50px auto;
+}
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+
+
+    h1, p {
+        margin: 5px 0;
+    }
+
+    p {
+        font-size: 0.8rem;
+    }
+
+    @media (max-width: 550px) {
+        order: 0;
+    }
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 700;
+    background-color: #238AB6;
+    color: #fff;
+    cursor: pointer;
+
+    @media (max-width: 550px) {
+        order: 1;
+        margin-top: 30px;
+    }
+}
+
+.cards {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    margin: 30px auto;
+
+    @media (max-width: 550px) {
+        order: 2;
+    }
+}
+
+.card {
+    will-change: transform;
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    aspect-ratio: 5/7;
+    width: calc((100% / 3) - 20px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    perspective: 1000px;
+    opacity: 1;
+
+    @media (min-width: 375px) and (max-width: 550px) {
+        width: calc(50% - 15px);
+    }
+
+    @media (max-width: 374px) {
+        width: 100%;
+    }
+
+    &.red {
+        color: #b80303;
+    }
+
+    &.hidden {
+        transform: translateX(-400%);
+        opacity: 0;
+    }
+
+    &.flipped .card-back {
+        opacity: 1;
+    }
+
+    &.flipped .card-front {
+        opacity: 0;
+    }
+
+    &.flipped .card-inner {
+        transform: rotateY(180deg);
+    }
+
+    /* Hover */
+    &:not(.flipped) .card-inner {
+        transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    &:not(.flipped):hover .card-inner {
+        transform: translateY(-2px);
+    }
+
+    .rank:first-of-type {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+    }
+
+    .rank:nth-child(2) {
+        position: absolute;
+        bottom: 5px;
+        right: 5px;
+    }
+
+    .card-inner {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .card-front, .card-back {
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+
+    .card-front {
+        min-width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        padding: 30px;
+        background-color: #fff;
+        border: 6px solid #fff;
+        border-radius: 10px;
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        transition: opacity 0.3s ease;
+        transform: rotateY(0deg);
+
+        .suit {
+            font-size: 1rem;
+
+            @media (min-width: 431px) and (max-width: 550px) {
+                font-size: 1.5rem;
+            }
+
+            @media (max-width: 430px) {
+                font-size: 1rem;
+            }
+        }
+    }
+
+    .card-back {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background: url(../img/card-flip-card-image.png) no-repeat center;
+        background-size: cover;
+        opacity: 0;
+        z-index: 1;
+        border-radius: 15px;
+        transition: opacity 0.3s ease;
+        transform: rotateY(180deg);
+    }
+}
+
+.outcome {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    opacity: 1;
+    transition: 0.3s;
+
+    &.hidden {
+        opacity: 0;
+    }
+}
+
+.mute-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 32px;
+    height: 32px;
+    border: 0;
+    border-radius: 50%;
+    background: #ffffff00;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+
+    img {
+        width: 18px;
+        height: 18px;
+        pointer-events: none;
+        filter: invert(1);
+    }
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 6px;
+        display: none;
+        background: linear-gradient(45deg, transparent 45%, #b80303 45%, #b80303 55%, transparent 55%);
+    }
+
+    &.muted::after {
+        display: block;
+    }
+}
+
+/* Match / No‑match visual pulse */
+.card {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -2px; /* start right at the border */
+    border-radius: 10px; /* match card corners */
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  &.pulse--match::before {
+    border: 15px solid rgba(0, 255, 0, 1);
+    animation: cardRippleMatch 0.8s ease-out forwards;
+  }
+
+  &.pulse--miss::before {
+    border: 15px solid rgba(255, 0, 0, 1);
+    animation: cardRippleMiss 0.8s ease-out forwards;
+  }
+}
+
+@keyframes cardRippleMatch {
+  0%   { transform: scale(1);    opacity: 1; }
+  100% { transform: scale(1.15);  opacity: 0; }
+}
+
+@keyframes cardRippleMiss {
+  0%   { transform: scale(1);    opacity: 1; }
+  100% { transform: scale(1.15);  opacity: 0; }
+}
+
+/* Stats block */
+.stats {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.3);
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    max-width: 200px;
+}
+
+@media (max-width: 374px) {
+    .stats {
+        position: static;
+        margin-top: 20px;
+        order: 3;
+        width: 100%;
+        text-align: left;
+        display: block;
+    }
+}
