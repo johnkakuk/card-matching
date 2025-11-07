@@ -278,7 +278,7 @@ function newHand() {
 
     // Send cards in hand to the DOM
     hand.forEach((card, i) => {
-        cards[i].querySelectorAll(".card-front .suit").forEach(e => e.remove());
+        cards[i].querySelectorAll(".card-front .suit, .card-front .suit-face, .card-front .face").forEach(e => e.remove());
         cards[i].classList.remove("red");
         cardRanks[i].innerHTML = hand[i].rank;
         cardRanks2[i].innerHTML = hand[i].rank;
@@ -300,19 +300,40 @@ function newHand() {
             }
         } else if(value == 11) {
             const el = document.createElement("span");
-            el.className = "suit face";
-            el.innerHTML = "♘";
+            el.className = "suit-face";
+            el.innerHTML = `${card.suit}`;
+
+            const el2 = document.createElement("span");
+            el2.className = "face";
+            el2.innerHTML = `♘`;
+
+            cards[i].querySelector(".card-front")?.appendChild(el2);
             cards[i].querySelector(".card-front")?.appendChild(el);
+            cards[i].querySelector(".card-front")?.appendChild(el2.cloneNode(true));
         } else if(value == 12) {
             const el = document.createElement("span");
-            el.className = "suit face";
-            el.innerHTML = "♕";
+            el.className = "suit-face";
+            el.innerHTML = `${card.suit}`;
+            
+            const el2 = document.createElement("span");
+            el2.className = "face";
+            el2.innerHTML = `♕`;
+
+            cards[i].querySelector(".card-front")?.appendChild(el2);
             cards[i].querySelector(".card-front")?.appendChild(el);
+            cards[i].querySelector(".card-front")?.appendChild(el2.cloneNode(true));
         } else if (value == 13) {
             const el = document.createElement("span");
-            el.className = "suit face";
-            el.innerHTML = "♔";
+            el.className = "suit-face";
+            el.innerHTML = `${card.suit}`;
+
+            const el2 = document.createElement("span");
+            el2.className = "face";
+            el2.innerHTML = `♔`;
+            
+            cards[i].querySelector(".card-front")?.appendChild(el2);
             cards[i].querySelector(".card-front")?.appendChild(el);
+            cards[i].querySelector(".card-front")?.appendChild(el2.cloneNode(true));
         } else {
             console.error("An unspecified error occurred.");
         }
